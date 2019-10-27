@@ -8,7 +8,7 @@
 
 QIIME 2のダウンロード・インストール
 ```sh
-curl -O  https://data.qiime2.org/distro/core/qiime2-2019.7-py36-osx-conda.yml
+curl -OL  https://data.qiime2.org/distro/core/qiime2-2019.7-py36-osx-conda.yml
 conda env create -n qiime2-2019.7 --file qiime2-2019.7-py36-osx-conda.yml
 ```
 作業ディレクトリの作成・シーケンスデータのダウンロード
@@ -19,12 +19,19 @@ cd qiime2 #以降qiime2ディレクトリで作業する
 curl -OL http://www.mothur.org/w/images/d/d6/MiSeqSOPData.zip #約37MBのファイルがダウンロードさ
 unzip MiSeqSOPData.zip #解凍
 
-mkdir input
-mv MiSeq_SOP/*.fastq #使用するデータのみinputフォルダに移動
+mkdir input inputフォルダの作成
+mv MiSeq_SOP/*.fastq input #使用するデータのみinputフォルダに移動
 gzip input/* # fastq.gzファイルに圧縮
 ```
-manifestファイル、metadataファイルの作成
-下記のように本レポジトリからダウンロードしてください。
+manifestファイル、metadataファイルのダウンロード
+```sh
+#manifestファイルのダウンロード
+curl -O https://raw.githubusercontent.com/t-tsukimi/Experimental_Medichine2019.12/master/qiime2/manifest.txt
+
+#metadataファイルのダウンロード
+curl -O https://raw.githubusercontent.com/t-tsukimi/Experimental_Medichine2019.12/master/qiime2/sample-metadata.txt
+```
+
 
 シーケンスデータのインポート
 ```sh
