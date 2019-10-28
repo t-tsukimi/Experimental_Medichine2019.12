@@ -94,7 +94,7 @@ qiime diversity core-metrics-phylogenetic \
   --output-dir core-metrics-results #出力ディレクトリ名
 
 qiime metadata tabulate \ #α多様性（faith_pdの可視化）
-  --m-input-file core-metrics-results \ faith_pd_vector.qza \ #入力するqzaファイル名
+  --m-input-file core-metrics-results/faith_pd_vector.qza \ #入力するqzaファイル名
   --o-visualization core-metrics-results/faith_pd_vector.qzv #入力するqzaファイル名
 ```
 
