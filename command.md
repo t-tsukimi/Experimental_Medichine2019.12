@@ -109,15 +109,15 @@ qiime diversity alpha-rarefaction \
 ```
 細菌種同定のための分類器作成
 ```sh
-curl -OL ftp://greengenes.microbio.me \ greengenes_release/gg_13_5 \ gg_13_8_otus.tar.gz #データベースのダウンロード
+curl -OL ftp://greengenes.microbio.me/greengenes_release/gg_13_5/gg_13_8_otus.tar.gz #データベースのダウンロード
 mkdir classifier
-mv gg_13_8_otus.tar.gz classifier \ 
+mv gg_13_8_otus.tar.gz classifier 
 tar zxvf classifier/gg_13_8_otus.tar.gz -C classifier #解凍
 
 #教師データ（Green genesデータベースの読み込み）
 qiime tools import \
   --type 'FeatureData[Sequence]' \ #インポート後のデータ形式
-  --input-path classifier/gg_13_8_otus \ rep_set/99_otus.fasta \ #インポートするファイル名     
+  --input-path classifier/gg_13_8_otus/rep_set/99_otus.fasta \ #インポートするファイル名     
   --output-path classifier/99_otus.qza #インポート後のファイル名
 
 qiime tools import \
@@ -130,7 +130,7 @@ qiime tools import \
 qiime feature-classifier extract-reads \ 
   --i-sequences classifier/99_otus.qza \ #教師データとなるファイル名
   --p-f-primer GTGCCAGCMGCCGCGGTAA \ #PCRに用いたFowardプライマー配列
-  --p-r-primer GGACTACHVGGGTWTCTAAT \#PCRに用いたReverseプライマー配列
+  --p-r-primer GGACTACHVGGGTWTCTAAT \ #PCRに用いたReverseプライマー配列
   --p-min-length 100 \ #切り出し後に100bpより短い配列は削除
   --p-max-length 400 \ #切り出し後に400bpより長い配列は削除
   --o-reads classifier/ref-seqs_gg99_v4.qza \ #出力ファイル名
