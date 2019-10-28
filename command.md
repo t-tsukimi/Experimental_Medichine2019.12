@@ -38,7 +38,7 @@ curl -O https://raw.githubusercontent.com/t-tsukimi/Experimental_Medichine2019.1
 conda activate qiime2-2019.7 #QIIME 2の起動
 qiime tools import \
   --type 'SampleData[PairedEndSequencesWithQuality]' \ #インポート後のデータ形式
-  --input-path manifest.txt\ #manifestファイル名
+  --input-path manifest.txt \ #manifestファイル名
   --output-path demux.qza \ #インポート後のファイル名
   --input-format PairedEndFastqManifestPhred33V2 #読み込むデータ形式
 
@@ -78,7 +78,7 @@ qiime metadata tabulate \
 qiime phylogeny align-to-tree-mafft-fasttree \
   --i-sequences rep-seqs.qza \ #入力する代表配列ファイル名
   --o-alignment phylogeny/aligned-rep-seqs.qza \ #出力するアラインメントファイル名
-  --o-masked-alignment phylogeny/masked-aligned-rep-seqs.qza \
+  --o-masked-alignment phylogeny \ masked-aligned-rep-seqs.qza \
   --o-tree phylogeny/unrooted-tree.qza \ #出力する無根系統樹ファイル名
   --o-rooted-tree phylogeny/rooted-tree.qza \ #出力する有根系統樹ファイル名
   --output-dir phylogeny/ #出力ディレクトリ名
@@ -94,7 +94,7 @@ qiime diversity core-metrics-phylogenetic \
   --output-dir core-metrics-results #出力ディレクトリ名
 
 qiime metadata tabulate \ #α多様性（faith_pdの可視化）
-  --m-input-file core-metrics-results/faith_pd_vector.qza \ #入力するqzaファイル名
+  --m-input-file core-metrics-results \ faith_pd_vector.qza \ #入力するqzaファイル名
   --o-visualization core-metrics-results/faith_pd_vector.qzv \ #入力するqzaファイル名
 ```
 
@@ -109,15 +109,15 @@ qiime diversity alpha-rarefaction \
 ```
 細菌種同定のための分類器作成
 ```sh
-curl -OL ftp://greengenes.microbio.me/greengenes_release/gg_13_5/gg_13_8_otus.tar.gz #データベースのダウンロード
+curl -OL ftp://greengenes.microbio.me \ greengenes_release/gg_13_5 \ gg_13_8_otus.tar.gz #データベースのダウンロード
 mkdir classifier
-mv gg_13_8_otus.tar.gz classifier/
+mv gg_13_8_otus.tar.gz classifier \ 
 tar zxvf classifier/gg_13_8_otus.tar.gz -C classifier #解凍
 
 #教師データ（Green genesデータベースの読み込み）
 qiime tools import \
   --type 'FeatureData[Sequence]' \ #インポート後のデータ形式
-  --input-path classifier/gg_13_8_otus/rep_set/99_otus.fasta \ #インポートするファイル名     
+  --input-path classifier/gg_13_8_otus \ rep_set/99_otus.fasta \ #インポートするファイル名     
   --output-path classifier/99_otus.qza #インポート後のファイル名
 
 qiime tools import \
@@ -137,9 +137,11 @@ qiime feature-classifier extract-reads \
 
 #学習
 qiime feature-classifier fit-classifier-naive-bayes \ 
-  --i-reference-reads classifier/ref-seqs_gg99_v4.qza \ #切り出した教師データ（配列）ファイル名
-  --i-reference-taxonomy classifier/ref-taxonomy.qza \ #切り出した教師データファイル（分類）名
-  --o-classifier classifier/classifier_gg99_v4.qza \ #出力する分類器ファイル名
+  --i-reference-reads classifier \
+  ref-seqs_gg99_v4.qza \ #切り出した教師データ（配列）ファイル名
+  --i-reference-taxonomy classifier \
+   ref-taxonomy.qza \ #切り出した教師データファイル（分類）名
+  --o-classifier classifier classifier_gg99_v4.qza #出力する分類器ファイル名
 
 ```
 細菌叢組成の算出
@@ -147,12 +149,21 @@ qiime feature-classifier fit-classifier-naive-bayes \
 mkdir taxonomy
 
 #細菌種の同定
-qiime feature-classifier classify-sklearn --i-classifier classifier/classifier_gg99_v4.qza --i-reads rep-seqs.qza --o-classification taxonomy/taxonomy_v4.qza
+qiime feature-classifier classify-sklearn \ 
+--i-classifier classifier classifier_gg99_v4.qza \ 
+--i-reads rep-seqs.qza \
+--o-classification taxonomy/taxonomy_v4.qza
 
 #可視化
-qiime metadata tabulate --m-input-file taxonomy/taxonomy_v4.qza --o-visualization taxonomy/taxonomy_v4.qzv
+qiime metadata tabulate \
+--m-input-file taxonomy/taxonomy_v4.qza \
+ --o-visualization taxonomy/taxonomy_v4.qzv
 
 
 #100 %積み上げ棒グラフ作成
-qiime taxa barplot --i-table table.qza --i-taxonomy taxonomy/taxonomy_v4.qza --m-metadata-file sample-metadata.txt --o-visualization taxonomy/taxa-bar-plots_v4.qzv #積み上げ棒グラフの作成
+qiime taxa barplot \
+--i-table table.qza \
+--i-taxonomy taxonomy/taxonomy_v4.qza \ 
+--m-metadata-file sample-metadata.txt \
+ --o-visualization taxonomy/taxa-bar-plots_v4.qzv #積み上げ棒グラフの作成
 ```
