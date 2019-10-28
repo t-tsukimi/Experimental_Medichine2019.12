@@ -137,10 +137,8 @@ qiime feature-classifier extract-reads \
 
 #学習
 qiime feature-classifier fit-classifier-naive-bayes \ 
-  --i-reference-reads classifier \
-  ref-seqs_gg99_v4.qza \ #切り出した教師データ（配列）ファイル名
-  --i-reference-taxonomy classifier \
-   ref-taxonomy.qza \ #切り出した教師データファイル（分類）名
+  --i-reference-reads classifier ref-seqs_gg99_v4.qza \ #切り出した教師データ（配列）ファイル名
+  --i-reference-taxonomy classifier ref-taxonomy.qza \ #切り出した教師データファイル（分類）名
   --o-classifier classifier classifier_gg99_v4.qza #出力する分類器ファイル名
 
 ```
@@ -150,20 +148,20 @@ mkdir taxonomy
 
 #細菌種の同定
 qiime feature-classifier classify-sklearn \ 
---i-classifier classifier classifier_gg99_v4.qza \ 
---i-reads rep-seqs.qza \
---o-classification taxonomy/taxonomy_v4.qza
+  --i-classifier classifier classifier_gg99_v4.qza \ 
+  --i-reads rep-seqs.qza \
+  --o-classification taxonomy/taxonomy_v4.qza
 
 #可視化
 qiime metadata tabulate \
---m-input-file taxonomy/taxonomy_v4.qza \
- --o-visualization taxonomy/taxonomy_v4.qzv
+  --m-input-file taxonomy/taxonomy_v4.qza \
+  --o-visualization taxonomy/taxonomy_v4.qzv
 
 
 #100 %積み上げ棒グラフ作成
 qiime taxa barplot \
---i-table table.qza \
---i-taxonomy taxonomy/taxonomy_v4.qza \ 
---m-metadata-file sample-metadata.txt \
- --o-visualization taxonomy/taxa-bar-plots_v4.qzv #積み上げ棒グラフの作成
+  --i-table table.qza \
+  --i-taxonomy taxonomy/taxonomy_v4.qza \ 
+  --m-metadata-file sample-metadata.txt \
+  --o-visualization taxonomy/taxa-bar-plots_v4.qzv #積み上げ棒グラフの作成
 ```
