@@ -133,7 +133,7 @@ qiime feature-classifier extract-reads \
   --p-r-primer GGACTACHVGGGTWTCTAAT \ #PCRに用いたReverseプライマー配列
   --p-min-length 100 \ #切り出し後に100bpより短い配列は削除
   --p-max-length 400 \ #切り出し後に400bpより長い配列は削除
-  --o-reads classifier/ref-seqs_gg99_v4.qza \ #出力ファイル名
+  --o-reads classifier/ref-seqs_gg99_v4.qza #出力ファイル名
 
 #学習
 qiime feature-classifier fit-classifier-naive-bayes \ 
