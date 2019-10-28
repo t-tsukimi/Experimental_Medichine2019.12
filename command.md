@@ -1,6 +1,6 @@
 # QIIME2: Wet研究者も使える微生物叢解析ツール
 
-本ページは実験医学2,019年12月号（羊土社）「クローズアップ実験法」の補足ページとなります。  
+本ページは実験医学2019年12月号（羊土社）「クローズアップ実験法」の補足ページとなります。  
 
 
 ### コマンド集
@@ -78,7 +78,7 @@ qiime metadata tabulate \
 qiime phylogeny align-to-tree-mafft-fasttree \
   --i-sequences rep-seqs.qza \ #入力する代表配列ファイル名
   --o-alignment phylogeny/aligned-rep-seqs.qza \ #出力するアラインメントファイル名
-  --o-masked-alignment phylogeny \ masked-aligned-rep-seqs.qza \
+  --o-masked-alignment phylogeny/masked-aligned-rep-seqs.qza \
   --o-tree phylogeny/unrooted-tree.qza \ #出力する無根系統樹ファイル名
   --o-rooted-tree phylogeny/rooted-tree.qza \ #出力する有根系統樹ファイル名
   --output-dir phylogeny/ #出力ディレクトリ名
