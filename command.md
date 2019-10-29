@@ -137,9 +137,9 @@ qiime feature-classifier extract-reads \
 
 #学習
 qiime feature-classifier fit-classifier-naive-bayes \ 
-  --i-reference-reads classifier ref-seqs_gg99_v4.qza \ #切り出した教師データ（配列）ファイル名
-  --i-reference-taxonomy classifier ref-taxonomy.qza \ #切り出した教師データファイル（分類）名
-  --o-classifier classifier classifier_gg99_v4.qza #出力する分類器ファイル名
+  --i-reference-reads classifier/ref-seqs_gg99_v4.qza \ #切り出した教師データ（配列）ファイル名
+  --i-reference-taxonomy classifier/ref-taxonomy.qza \ #切り出した教師データファイル（分類）名
+  --o-classifier classifier/classifier_gg99_v4.qza #出力する分類器ファイル名
 
 ```
 細菌叢組成の算出
