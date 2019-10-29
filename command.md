@@ -148,7 +148,7 @@ mkdir taxonomy
 
 #細菌種の同定
 qiime feature-classifier classify-sklearn \ 
-  --i-classifier classifier classifier_gg99_v4.qza \ 
+  --i-classifier classifier/classifier_gg99_v4.qza \ 
   --i-reads rep-seqs.qza \
   --o-classification taxonomy/taxonomy_v4.qza
 
