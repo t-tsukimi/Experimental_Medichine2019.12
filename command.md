@@ -6,12 +6,12 @@
 ### コマンド集
 
 
-QIIME 2のダウンロード・インストール
+#### QIIME 2のダウンロード・インストール
 ```sh
 curl -OL  https://data.qiime2.org/distro/core/qiime2-2019.7-py36-osx-conda.yml
 conda env create -n qiime2-2019.7 --file qiime2-2019.7-py36-osx-conda.yml
 ```
-作業ディレクトリの作成・シーケンスデータのダウンロード
+#### 作業ディレクトリの作成・シーケンスデータのダウンロード
 ```sh
 mkdir qiime2
 cd qiime2 #以降qiime2ディレクトリで作業する
@@ -23,7 +23,7 @@ mkdir input inputフォルダの作成
 mv MiSeq_SOP/*.fastq input #使用するデータのみinputフォルダに移動
 gzip input/* # fastq.gzファイルに圧縮
 ```
-manifestファイル、metadataファイルのダウンロード
+#### manifestファイル、metadataファイルのダウンロード
 ```sh
 #manifestファイルのダウンロード
 curl -O https://raw.githubusercontent.com/t-tsukimi/Experimental_Medichine2019.12/master/qiime2/manifest.txt
@@ -33,7 +33,7 @@ curl -O https://raw.githubusercontent.com/t-tsukimi/Experimental_Medichine2019.1
 ```
 
 
-シーケンスデータの読み込み
+#### シーケンスデータの読み込み
 
 ```sh
 #QIIME 2の起動
@@ -63,7 +63,7 @@ qiime demux summarize \
 - --o-visualization: 出力するqzvファイル名  
 
 
-クオリティーコントロール・アセンブリ
+#### クオリティーコントロール・アセンブリ
 ```sh
 qiime dada2 denoise-paired \
   --i-demultiplexed-seqs demux.qza \ 
@@ -83,7 +83,7 @@ qiime dada2 denoise-paired \
 - --o-denoising-stats: 出力するクオリティーコントロール結果ファイル名
 - --p-n-threads: 解析に使用するスレッド数 (0を指定すると現在使用できる最大スレッド数で実行）
 
-クオリティーコントロール・アセンブリ結果の可視化
+#### クオリティーコントロール・アセンブリ結果の可視化
 ```sh
 #tableファイルの可視化
 qiime feature-table summarize \ 
@@ -114,9 +114,7 @@ qiime metadata tabulate \
 - --o-visualization: 出力するqzvファイル名
 
 
-
-
-代表配列の系統樹作成
+#### 代表配列の系統樹作成
 ```sh
 qiime phylogeny align-to-tree-mafft-fasttree \ 
   --i-sequences rep-seqs.qza \ 
@@ -133,7 +131,7 @@ qiime phylogeny align-to-tree-mafft-fasttree \
 - --output-dir: 出力ディレクトリ名
 
 
-α多様性β多様性指数の算出
+#### α多様性・β多様性指数の算出
 ```sh
 qiime diversity core-metrics-phylogenetic \ 
   --i-phylogeny phylogeny/rooted-tree.qza \ 
@@ -157,7 +155,7 @@ qiime metadata tabulate \
 - --o-visualization: #出力するqzvファイル名
 
 
-Rarefaction curveの算出
+#### Rarefaction curveの算出
 ```sh
 qiime diversity alpha-rarefaction \ 
   --i-table table.qza \ 
@@ -173,7 +171,7 @@ qiime diversity alpha-rarefaction \
 - --o-visualization: 出力ファイル名  
 
 
-細菌種同定のための分類器作成
+#### 細菌種同定のための分類器作成
 ```sh
 #使用するデータベース(GreenGenes)のダウンロード及び解凍
 curl -OL ftp://greengenes.microbio.me/greengenes_release/gg_13_5/gg_13_8_otus.tar.gz #データベースのダウンロード
@@ -234,7 +232,7 @@ qiime feature-classifier fit-classifier-naive-bayes \
 - --i-reference-taxonomy: 切り出した教師データ（taxnomy）ファイル名
 - --o-classifier: 出力する分類器ファイル名
 
-細菌叢組成の算出
+#### 細菌叢組成の算出
 ```sh
 mkdir taxonomy
 
