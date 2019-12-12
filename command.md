@@ -11,6 +11,12 @@
 curl -OL  https://data.qiime2.org/distro/core/qiime2-2019.7-py36-osx-conda.yml
 conda env create -n qiime2-2019.7 --file qiime2-2019.7-py36-osx-conda.yml
 ```
+![](https://github.com/t-tsukimi/Experimental_Medicine2019.12/blob/master/image/qiime2_mac_install1.png)
+
+QIIME 2が正常にインストールされたか確認するためには、下記コマンドでQIIME 2を起動し、ヘルプコマンド実行すれば良い。エラーなどが表示されなければ正常にインストールされている。
+![](https://github.com/t-tsukimi/Experimental_Medicine2019.12/blob/master/image/qiime2_mac_install2.png)
+
+
 #### 作業ディレクトリの作成・シーケンスデータのダウンロード
 ```sh
 mkdir qiime2
