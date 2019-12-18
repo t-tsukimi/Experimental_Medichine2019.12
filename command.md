@@ -22,7 +22,7 @@ QIIME 2が正常にインストールされたか確認するためには、下�
 mkdir qiime2
 cd qiime2 #以降qiime2ディレクトリで作業する
 
-curl -OL http://www.mothur.org/w/images/d/d6/MiSeqSOPData.zip #約37MBのファイルがダウンロードさ
+curl -OL http://www.mothur.org/w/images/d/d6/MiSeqSOPData.zip #約37MBのファイルがダウンロードされます
 unzip MiSeqSOPData.zip #解凍
 
 mkdir input inputフォルダの作成
